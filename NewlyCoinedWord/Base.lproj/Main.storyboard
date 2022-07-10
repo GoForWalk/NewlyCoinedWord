@@ -105,6 +105,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rtX-wK-GyR">
+                                <rect key="frame" x="20" y="299.5" width="374" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ccZ-GP-d8Z">
+                                        <rect key="frame" x="0.0" y="0.0" width="324" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="addWordMeaningReturnTapped:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="EfB-tZ-Y2L"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xqc-Hr-qWX">
+                                        <rect key="frame" x="324" y="0.0" width="50" height="50"/>
+                                        <color key="backgroundColor" systemColor="labelColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Xqc-Hr-qWX" secondAttribute="height" multiplier="1:1" id="xQZ-ip-dN8"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="plus.square.fill.on.square.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="medium" weight="semibold"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="meaningAddButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YXC-C4-M2P"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Dba-MS-TFS"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -119,6 +150,9 @@
                             <constraint firstItem="Vqg-xw-6qb" firstAttribute="leading" secondItem="Gsl-cW-88S" secondAttribute="leading" constant="30" id="c0t-kd-NX6"/>
                             <constraint firstItem="9Zn-Md-cpC" firstAttribute="top" secondItem="NXE-7W-oBZ" secondAttribute="bottom" constant="5" id="g3u-QY-aSI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gsl-cW-88S" secondAttribute="trailing" constant="20" id="ihV-JG-EEc"/>
+                            <constraint firstItem="rtX-wK-GyR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="jzA-1B-UmR"/>
+                            <constraint firstItem="Gsl-cW-88S" firstAttribute="top" secondItem="rtX-wK-GyR" secondAttribute="bottom" constant="10" id="kF0-0B-R3F"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rtX-wK-GyR" secondAttribute="trailing" constant="20" id="lwr-nG-bc0"/>
                             <constraint firstItem="Vqg-xw-6qb" firstAttribute="trailing" secondItem="Gsl-cW-88S" secondAttribute="trailing" constant="-30" id="nCy-ur-eOP"/>
                             <constraint firstItem="Vqg-xw-6qb" firstAttribute="top" secondItem="Gsl-cW-88S" secondAttribute="top" constant="30" id="qCm-8l-cn4"/>
                             <constraint firstItem="9Zn-Md-cpC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="uZs-TR-uAf"/>
@@ -128,6 +162,8 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="addWordMeaningStackView" destination="rtX-wK-GyR" id="Be5-Im-STy"/>
+                        <outlet property="addWordMeaningTextField" destination="ccZ-GP-d8Z" id="kyk-sz-37F"/>
                         <outlet property="mainImage" destination="Gsl-cW-88S" id="T1k-od-8SA"/>
                         <outlet property="meaningLabel" destination="Vqg-xw-6qb" id="MHR-mB-RBw"/>
                         <outlet property="searchStackView" destination="NXE-7W-oBZ" id="PTD-Vc-MMc"/>
@@ -150,6 +186,7 @@
     </scenes>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="plus.square.fill.on.square.fill" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -15,6 +15,10 @@ class SearchViewController: UIViewController {
     @IBOutlet var keywordButtons: [UIButton]!
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var meaningLabel: UILabel!
+    @IBOutlet weak var addWordMeaningStackView: UIStackView!
+    @IBOutlet weak var addWordMeaningTextField: UITextField!
+    
+    var currentSearchingWord: String = ""
     
     var inputWords : [String] = []
     
@@ -29,6 +33,7 @@ class SearchViewController: UIViewController {
         setSearchStackViewUI()
         setButtonsUI()
         setMainImage()
+        setAddMeaningFieldUI()
     }
     
     func setSearchStackViewUI() {
@@ -53,6 +58,11 @@ class SearchViewController: UIViewController {
         
     }
     
+    func setAddMeaningFieldUI() {
+        addWordMeaningStackView.isHidden = true
+        addWordMeaningTextField.placeholder = "단어의 뜻을 입력해주세요!!"
+    }
+    
     // MARK: @IBActions
     // view 탭 한 경우 keyboard 내려가는 액션
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
@@ -67,18 +77,17 @@ class SearchViewController: UIViewController {
         guard let word = sender.text else { return }
         
         updateButtons(word)
-        
     }
     
-    
+    // 검색버튼 누를 때 검색어 기록 버튼 추가 + meaningLabel에서 뜻 검색 기능
     @IBAction func searchButtonTapped(_ sender: UIButton) {
 
         guard let word = searchTextField.text else { return }
         
         updateButtons(word)
-        
     }
     
+    // 검색어 기록 버튼 클릭 시, 해당 단어 뜻 검색 기능
     @IBAction func wordButtonTapped(_ sender: UIButton) {
         
         guard let word = sender.titleLabel?.text else {return}
@@ -87,7 +96,29 @@ class SearchViewController: UIViewController {
         
     }
     
+    // MeaningAddButton 누르면 Database
+    @IBAction func meaningAddButtonTapped(_ sender: UIButton) {
+        
+        guard let word = addWordMeaningTextField.text else { return }
+                
+        addWordMeaning(word)
+
+    }
+    
+    // 데이터베이스에 없는 단어 뜻 추가 가능
+    @IBAction func addWordMeaningReturnTapped(_ sender: UITextField) {
+        
+        guard let word = sender.text else { return }
+        
+        addWordMeaning(word)
+
+    }
+    
+    
+    // MARK: Button & MeaningLabel Logic
     func addSearchWords(_ word: String) {
+        
+        if inputWords.contains(word) { return }
         
         if word == "" { return }
         
@@ -103,6 +134,7 @@ class SearchViewController: UIViewController {
         print(inputWords.description)
     }
     
+    
     func putWordsToButtons() {
         
         var count = 0
@@ -117,15 +149,16 @@ class SearchViewController: UIViewController {
         count = 0
     }
 
+    // 단어뜻 검색 기능
     func searchWordFromDatabase(_ word: String) {
         if wordDataBase.keys.contains(word) {
             meaningLabel.text = wordDataBase[word]
             
         } else {
             meaningLabel.text = "데이터가 없어요... ㅠㅅㅠ"
+            addWordMeaningStackView.isHidden = false
             
         }
-        
     }
     
     func updateButtons(_ word: String) {
@@ -134,7 +167,25 @@ class SearchViewController: UIViewController {
         putWordsToButtons()
         searchWordFromDatabase(word)
         searchTextField.text = ""
+        currentSearchingWord = word
     }
+    
+    // 단어 뜻 추가 로직
+    func addWordMeaning(_ word: String) {
+        
+        if currentSearchingWord != "" , !wordDataBase.keys.contains(currentSearchingWord) {
+            
+            wordDataBase[currentSearchingWord] = word
+            meaningLabel.text = word
+            
+            addWordMeaningTextField.text = ""
+            addWordMeaningStackView.isHidden = true
+        }
+        
+        addWordMeaningTextField.resignFirstResponder()
+    }
+    
+    
     
 
 }
