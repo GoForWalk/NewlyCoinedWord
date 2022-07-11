@@ -70,14 +70,12 @@ class SearchViewController: UIViewController {
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
         
         searchTextField.resignFirstResponder()
-        
     }
     
     // keyboard의 return키 누를 경우 액션
     @IBAction func returnKeyBoardTapped(_ sender: UITextField) {
         
         guard let word = sender.text else { return }
-        
         updateButtons(word)
     }
     
@@ -85,7 +83,6 @@ class SearchViewController: UIViewController {
     @IBAction func searchButtonTapped(_ sender: UIButton) {
 
         guard let word = searchTextField.text else { return }
-        
         updateButtons(word)
     }
     
@@ -93,7 +90,6 @@ class SearchViewController: UIViewController {
     @IBAction func wordButtonTapped(_ sender: UIButton) {
         
         guard let word = sender.titleLabel?.text else {return}
-        
         searchWordFromDatabase(word)
         
     }
@@ -102,18 +98,14 @@ class SearchViewController: UIViewController {
     @IBAction func meaningAddButtonTapped(_ sender: UIButton) {
         
         guard let word = addWordMeaningTextField.text else { return }
-                
         addWordMeaning(word)
-
     }
     
     // 데이터베이스에 없는 단어 뜻 추가 가능
     @IBAction func addWordMeaningReturnTapped(_ sender: UITextField) {
         
         guard let word = sender.text else { return }
-        
         addWordMeaning(word)
-
     }
     
     // MARK: Button & MeaningLabel Logic
@@ -174,7 +166,9 @@ class SearchViewController: UIViewController {
     // 단어 뜻 추가 로직
     func addWordMeaning(_ wordMeaning: String) {
         
-        if !currentSearchingWord.isEmpty , !wordDataBase.keys.contains(currentSearchingWord) {
+        if wordMeaning.isEmpty { return }
+        
+        if !currentSearchingWord.isEmpty, !wordDataBase.keys.contains(currentSearchingWord) {
             
             wordDataBase[currentSearchingWord] = wordMeaning
             meaningLabel.text = wordMeaning
