@@ -9,6 +9,7 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    // MARK: properties
     @IBOutlet weak var searchStackView: UIStackView!
     @IBOutlet weak var searchTextField: UITextField!
     
@@ -22,6 +23,7 @@ class SearchViewController: UIViewController {
     
     var inputWords : [String] = []
     
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -114,13 +116,12 @@ class SearchViewController: UIViewController {
 
     }
     
-    
     // MARK: Button & MeaningLabel Logic
     func addSearchWords(_ word: String) {
         
         if inputWords.contains(word) { return }
         
-        if word == "" { return }
+        if word.isEmpty { return }
         
         if inputWords.count == 4 {
             inputWords.remove(at: 0)
@@ -133,7 +134,6 @@ class SearchViewController: UIViewController {
         
         print(inputWords.description)
     }
-    
     
     func putWordsToButtons() {
         
@@ -153,6 +153,7 @@ class SearchViewController: UIViewController {
     func searchWordFromDatabase(_ word: String) {
         if wordDataBase.keys.contains(word) {
             meaningLabel.text = wordDataBase[word]
+            addWordMeaningStackView.isHidden = true
             
         } else {
             meaningLabel.text = "데이터가 없어요... ㅠㅅㅠ"
@@ -171,12 +172,12 @@ class SearchViewController: UIViewController {
     }
     
     // 단어 뜻 추가 로직
-    func addWordMeaning(_ word: String) {
+    func addWordMeaning(_ wordMeaning: String) {
         
-        if currentSearchingWord != "" , !wordDataBase.keys.contains(currentSearchingWord) {
+        if !currentSearchingWord.isEmpty , !wordDataBase.keys.contains(currentSearchingWord) {
             
-            wordDataBase[currentSearchingWord] = word
-            meaningLabel.text = word
+            wordDataBase[currentSearchingWord] = wordMeaning
+            meaningLabel.text = wordMeaning
             
             addWordMeaningTextField.text = ""
             addWordMeaningStackView.isHidden = true
@@ -184,8 +185,5 @@ class SearchViewController: UIViewController {
         
         addWordMeaningTextField.resignFirstResponder()
     }
-    
-    
-    
 
 }
