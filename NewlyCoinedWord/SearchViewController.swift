@@ -26,7 +26,6 @@ class SearchViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUI()
     }
     
@@ -111,16 +110,13 @@ class SearchViewController: UIViewController {
     // MARK: Button & MeaningLabel Logic
     func addSearchWords(_ word: String) {
         
-        if inputWords.contains(word) { return }
-        
-        if word.isEmpty { return }
+        if inputWords.contains(word), word.isEmpty { return }
         
         if inputWords.count == 4 {
             inputWords.remove(at: 0)
             inputWords.append(word)
             
         } else if inputWords.count < 4 {
-            
             inputWords.append(word)
         }
         
@@ -143,6 +139,9 @@ class SearchViewController: UIViewController {
 
     // 단어뜻 검색 기능
     func searchWordFromDatabase(_ word: String) {
+        
+        currentSearchingWord = word
+        
         if wordDataBase.keys.contains(word) {
             meaningLabel.text = wordDataBase[word]
             addWordMeaningStackView.isHidden = true
