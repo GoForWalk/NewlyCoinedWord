@@ -23,10 +23,15 @@ class SearchViewController: UIViewController {
     
     var inputWords : [String] = []
     
+    var db: DataBase = DataBase()
+    
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        
+        // 초기 데이터 불러오기
+        db.getData()
     }
     
     // MARK: SetUI
@@ -142,8 +147,8 @@ class SearchViewController: UIViewController {
         
         currentSearchingWord = word
         
-        if wordDataBase.keys.contains(word) {
-            meaningLabel.text = wordDataBase[word]
+        if db.wordMeaning.keys.contains(word) {
+            meaningLabel.text = db.getMeaning(word: word)
             addWordMeaningStackView.isHidden = true
             
         } else {
@@ -167,9 +172,9 @@ class SearchViewController: UIViewController {
         
         if wordMeaning.isEmpty { return }
         
-        if !currentSearchingWord.isEmpty, !wordDataBase.keys.contains(currentSearchingWord) {
-            
-            wordDataBase[currentSearchingWord] = wordMeaning
+        if !currentSearchingWord.isEmpty, !db.wordMeaning.keys.contains(currentSearchingWord) {
+
+            db.saveData(word: currentSearchingWord, meaning: wordMeaning)
             meaningLabel.text = wordMeaning
             
             addWordMeaningTextField.text = ""

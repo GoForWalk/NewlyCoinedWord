@@ -7,8 +7,36 @@
 
 import Foundation
 
-var wordDataBase: [String: String] = [
-    "삼귀자" : "연애를 시작하기 전 단계!",
-    "꾸안꾸" : "꾸민듯 안 꾸민듯?",
-    "만반잘부" : "만나서 반가워 잘 부탁해"
-]
+struct DataBase {
+    
+    private var userDefaultsKey = "wordDataBase"
+    
+    var wordMeaning: [String: String] = [:]
+    
+    mutating func saveMeaning(word: String, meaning: String) {
+        wordMeaning[word] = meaning
+    }
+    
+    mutating func saveData(word: String, meaning: String) {
+        saveMeaning(word: word, meaning: meaning)
+        UserDefaults.standard.set(wordMeaning, forKey: userDefaultsKey)
+    }
+    
+    mutating func getData() {
+        
+        guard let defaultData = UserDefaults.standard.dictionary(forKey: userDefaultsKey) as? [String: String] else { return }
+        
+        self.wordMeaning = defaultData
+    }
+    
+    mutating func getMeaning(word: String) -> String {
+        getData()
+        
+        guard let result = wordMeaning[word] else { return "뜻이 없어요!!"}
+        
+        return result
+    }
+    
+    
+}
+
