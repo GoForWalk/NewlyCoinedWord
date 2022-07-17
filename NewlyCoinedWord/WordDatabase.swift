@@ -37,6 +37,12 @@ struct DataBase {
         return result
     }
     
-    
-}
+    mutating func deleteData() {
+        
+        UserDefaults.standard.set([:], forKey: userDefaultsKey)
+        
+        getData()
+        
+    }
+}//: DataBase
 

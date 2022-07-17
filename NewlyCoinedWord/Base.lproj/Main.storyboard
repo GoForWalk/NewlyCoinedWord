@@ -152,6 +152,38 @@
                                     <constraint firstAttribute="height" constant="50" id="Dba-MS-TFS"/>
                                 </constraints>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9hr-O9-o2k">
+                                <rect key="frame" x="20" y="802" width="374" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5q-hs-0Vj">
+                                        <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="단어 뜻 수정">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="updateMeaningButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OhA-VQ-GaN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWe-B3-uIK">
+                                        <rect key="frame" x="197" y="0.0" width="177" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="초기화">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9EP-5G-gM5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="rsr-CS-3as"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -163,15 +195,18 @@
                             <constraint firstItem="Gsl-cW-88S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="PmU-HN-1MA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NXE-7W-oBZ" secondAttribute="trailing" constant="20" id="QOq-2w-ffU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9Zn-Md-cpC" secondAttribute="trailing" constant="20" id="Sv0-l5-kYb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9hr-O9-o2k" secondAttribute="bottom" constant="20" id="W41-24-r3w"/>
                             <constraint firstItem="Gsl-cW-88S" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="XSf-jr-w8n"/>
                             <constraint firstItem="Vqg-xw-6qb" firstAttribute="leading" secondItem="Gsl-cW-88S" secondAttribute="leading" constant="30" id="c0t-kd-NX6"/>
                             <constraint firstItem="9Zn-Md-cpC" firstAttribute="top" secondItem="NXE-7W-oBZ" secondAttribute="bottom" constant="5" id="g3u-QY-aSI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gsl-cW-88S" secondAttribute="trailing" constant="20" id="ihV-JG-EEc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9hr-O9-o2k" secondAttribute="trailing" constant="20" id="ioe-2e-lhl"/>
                             <constraint firstItem="rtX-wK-GyR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="jzA-1B-UmR"/>
                             <constraint firstItem="Gsl-cW-88S" firstAttribute="top" secondItem="rtX-wK-GyR" secondAttribute="bottom" constant="10" id="kF0-0B-R3F"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rtX-wK-GyR" secondAttribute="trailing" constant="20" id="lwr-nG-bc0"/>
                             <constraint firstItem="Vqg-xw-6qb" firstAttribute="trailing" secondItem="Gsl-cW-88S" secondAttribute="trailing" constant="-30" id="nCy-ur-eOP"/>
                             <constraint firstItem="Vqg-xw-6qb" firstAttribute="top" secondItem="Gsl-cW-88S" secondAttribute="top" constant="30" id="qCm-8l-cn4"/>
+                            <constraint firstItem="9hr-O9-o2k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rcl-b0-HLe"/>
                             <constraint firstItem="9Zn-Md-cpC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="uZs-TR-uAf"/>
                         </constraints>
                         <connections>
@@ -198,7 +233,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="136" y="139"/>
+            <point key="canvasLocation" x="134.78260869565219" y="138.61607142857142"/>
         </scene>
     </scenes>
     <resources>
@@ -209,6 +244,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

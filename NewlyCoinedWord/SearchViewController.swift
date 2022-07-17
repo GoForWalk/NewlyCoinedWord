@@ -95,7 +95,6 @@ class SearchViewController: UIViewController {
         
         guard let word = sender.titleLabel?.text else {return}
         searchWordFromDatabase(word)
-        
     }
     
     // MeaningAddButton 누르면 Database
@@ -112,6 +111,15 @@ class SearchViewController: UIViewController {
         addWordMeaning(word)
     }
     
+    @IBAction func updateMeaningButtonTapped(_ sender: UIButton) {
+        showUpdateAlertController()
+        searchWordFromDatabase(currentSearchingWord)
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        showDeleteAlertController()
+    }
+    
     // MARK: Button & MeaningLabel Logic
     func addSearchWords(_ word: String) {
         
@@ -124,7 +132,6 @@ class SearchViewController: UIViewController {
         } else if inputWords.count < 4 {
             inputWords.append(word)
         }
-        
         print(inputWords.description)
     }
     
@@ -146,15 +153,14 @@ class SearchViewController: UIViewController {
     func searchWordFromDatabase(_ word: String) {
         
         currentSearchingWord = word
+        if currentSearchingWord.isEmpty { return }
         
         if db.wordMeaning.keys.contains(word) {
             meaningLabel.text = db.getMeaning(word: word)
             addWordMeaningStackView.isHidden = true
-            
         } else {
             meaningLabel.text = "데이터가 없어요... ㅠㅅㅠ"
             addWordMeaningStackView.isHidden = false
-            
         }
     }
     
@@ -184,4 +190,52 @@ class SearchViewController: UIViewController {
         addWordMeaningTextField.resignFirstResponder()
     }
 
+    func showUpdateAlertController() {
+        
+        guard !currentSearchingWord.isEmpty else { return }
+        
+        let alert = UIAlertController(title: "단어의 뜻을 수정합니다.", message: nil, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "추가하기!", style: .default) { _ in
+            
+            guard let word = alert.textFields?[0].text else { return }
+            self.meaningLabel.text = word
+            self.db.saveData(word: self.currentSearchingWord, meaning: word)
+        }
+        
+        let no = UIAlertAction(title: "취소!", style: .default, handler: nil)
+        
+        alert.addTextField {
+            $0.placeholder = "바꿀 뜻을 입력해주세요!"
+        }
+        alert.addAction(ok)
+        alert.addAction(no)
+    
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showDeleteAlertController() {
+        
+        let alert = UIAlertController(title: "데이터를 초기화 하시겠습니까?", message: "삭제된 데이터는 복구할 수 없습니다.", preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "삭제합니다.", style: .destructive) { _ in
+            self.db.deleteData()
+            self.resetUI()
+        }
+        let no = UIAlertAction(title: "아니요", style: .default, handler: nil)
+        
+        alert.addAction(ok)
+        alert.addAction(no)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func resetUI() {
+        inputWords = []
+        keywordButtons.forEach {
+            $0.setTitle("", for: .normal)
+            $0.isHidden = true
+        }
+        meaningLabel.text = ""
+        currentSearchingWord = ""
+    }
 }
