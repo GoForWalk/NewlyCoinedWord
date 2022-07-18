@@ -192,7 +192,7 @@ class SearchViewController: UIViewController {
 
     func showUpdateAlertController() {
         
-        guard !currentSearchingWord.isEmpty else { return }
+        guard !currentSearchingWord.isEmpty, db.isDBhasKey(word: currentSearchingWord) else { return }
         
         let alert = UIAlertController(title: "단어의 뜻을 수정합니다.", message: nil, preferredStyle: .alert)
         let ok = UIAlertAction(title: "추가하기!", style: .default) { _ in
