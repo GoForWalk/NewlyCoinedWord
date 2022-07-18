@@ -11,7 +11,7 @@ struct DataBase {
     
     private var userDefaultsKey = "wordDataBase"
     
-    var wordMeaning: [String: String] = [:]
+    private var wordMeaning: [String: String] = [:]
     
     mutating func saveMeaning(word: String, meaning: String) {
         wordMeaning[word] = meaning
@@ -44,5 +44,10 @@ struct DataBase {
         getData()
         
     }
+    
+    func isDBhasKey(word: String) -> Bool {
+        return wordMeaning.keys.contains(word)
+    }
+    
 }//: DataBase
 

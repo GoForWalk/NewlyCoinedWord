@@ -155,7 +155,7 @@ class SearchViewController: UIViewController {
         currentSearchingWord = word
         if currentSearchingWord.isEmpty { return }
         
-        if db.wordMeaning.keys.contains(word) {
+        if db.isDBhasKey(word: word) {
             meaningLabel.text = db.getMeaning(word: word)
             addWordMeaningStackView.isHidden = true
         } else {
@@ -178,7 +178,7 @@ class SearchViewController: UIViewController {
         
         if wordMeaning.isEmpty { return }
         
-        if !currentSearchingWord.isEmpty, !db.wordMeaning.keys.contains(currentSearchingWord) {
+        if !currentSearchingWord.isEmpty, !db.isDBhasKey(word: currentSearchingWord) {
 
             db.saveData(word: currentSearchingWord, meaning: wordMeaning)
             meaningLabel.text = wordMeaning
