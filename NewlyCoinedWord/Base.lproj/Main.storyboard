@@ -216,7 +216,7 @@
                     <connections>
                         <outlet property="addWordMeaningStackView" destination="rtX-wK-GyR" id="Be5-Im-STy"/>
                         <outlet property="addWordMeaningTextField" destination="ccZ-GP-d8Z" id="kyk-sz-37F"/>
-                        <outlet property="mainImage" destination="Gsl-cW-88S" id="T1k-od-8SA"/>
+                        <outlet property="mainImageView" destination="Gsl-cW-88S" id="T1k-od-8SA"/>
                         <outlet property="meaningLabel" destination="Vqg-xw-6qb" id="MHR-mB-RBw"/>
                         <outlet property="searchStackView" destination="NXE-7W-oBZ" id="PTD-Vc-MMc"/>
                         <outlet property="searchTextField" destination="ygD-YN-ORo" id="yVQ-4y-wuJ"/>

@@ -14,7 +14,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet var keywordButtons: [UIButton]!
-    @IBOutlet weak var mainImage: UIImageView!
+    @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var meaningLabel: UILabel!
     @IBOutlet weak var addWordMeaningStackView: UIStackView!
     @IBOutlet weak var addWordMeaningTextField: UITextField!
@@ -59,8 +59,8 @@ class SearchViewController: UIViewController {
     }
     
     func setMainImage() {
-        mainImage.image = UIImage(named: "background")
-        mainImage.contentMode = .scaleAspectFill
+        mainImageView.image = UIImage(named: "background")
+        mainImageView.contentMode = .scaleAspectFill
         
     }
     
@@ -72,43 +72,34 @@ class SearchViewController: UIViewController {
     // MARK: @IBActions
     // view 탭 한 경우 keyboard 내려가는 액션
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
-        
         searchTextField.resignFirstResponder()
     }
     
     // keyboard의 return키 누를 경우 액션
     @IBAction func returnKeyBoardTapped(_ sender: UITextField) {
-        
-        guard let word = sender.text else { return }
-        updateButtons(word)
+        updateButtons()
     }
     
     // 검색버튼 누를 때 검색어 기록 버튼 추가 + meaningLabel에서 뜻 검색 기능
     @IBAction func searchButtonTapped(_ sender: UIButton) {
-
-        guard let word = searchTextField.text else { return }
-        updateButtons(word)
+        updateButtons()
     }
     
     // 검색어 기록 버튼 클릭 시, 해당 단어 뜻 검색 기능
     @IBAction func wordButtonTapped(_ sender: UIButton) {
         
-        guard let word = sender.titleLabel?.text else {return}
+        guard let word = sender.currentTitle else {return}
         searchWordFromDatabase(word)
     }
     
     // MeaningAddButton 누르면 Database
     @IBAction func meaningAddButtonTapped(_ sender: UIButton) {
-        
-        guard let word = addWordMeaningTextField.text else { return }
-        addWordMeaning(word)
+        addWordMeaning()
     }
     
     // 데이터베이스에 없는 단어 뜻 추가 가능
     @IBAction func addWordMeaningReturnTapped(_ sender: UITextField) {
-        
-        guard let word = sender.text else { return }
-        addWordMeaning(word)
+        addWordMeaning()
     }
     
     @IBAction func updateMeaningButtonTapped(_ sender: UIButton) {
@@ -146,12 +137,11 @@ class SearchViewController: UIViewController {
             keywordButtons[count].isHidden = false
             count += 1
         }
-        count = 0
     }
 
     // 단어뜻 검색 기능
     func searchWordFromDatabase(_ word: String) {
-        
+                
         currentSearchingWord = word
         if currentSearchingWord.isEmpty { return }
         
@@ -164,7 +154,12 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func updateButtons(_ word: String) {
+    func updateButtons() {
+        
+        guard let word = searchTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
+
+        if word.isEmpty {searchTextField.text = ""; return }
+        
         searchTextField.resignFirstResponder()
         addSearchWords(word)
         putWordsToButtons()
@@ -174,14 +169,16 @@ class SearchViewController: UIViewController {
     }
     
     // 단어 뜻 추가 로직
-    func addWordMeaning(_ wordMeaning: String) {
+    func addWordMeaning() {
         
-        if wordMeaning.isEmpty { return }
+        guard let word = addWordMeaningTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
+        
+        if word.isEmpty {searchTextField.text = ""; return }
         
         if !currentSearchingWord.isEmpty, !db.isDBhasKey(word: currentSearchingWord) {
 
-            db.saveData(word: currentSearchingWord, meaning: wordMeaning)
-            meaningLabel.text = wordMeaning
+            db.saveData(word: currentSearchingWord, meaning: word)
+            meaningLabel.text = word
             
             addWordMeaningTextField.text = ""
             addWordMeaningStackView.isHidden = true

@@ -9,7 +9,7 @@ import Foundation
 
 struct DataBase {
     
-    private var userDefaultsKey = "wordDataBase"
+    private let userDefaultsKey = "wordDataBase"
     
     private var wordMeaning: [String: String] = [:]
     
@@ -23,7 +23,6 @@ struct DataBase {
     }
     
     mutating func getData() {
-        
         guard let defaultData = UserDefaults.standard.dictionary(forKey: userDefaultsKey) as? [String: String] else { return }
         
         self.wordMeaning = defaultData
@@ -42,7 +41,6 @@ struct DataBase {
         UserDefaults.standard.set([:], forKey: userDefaultsKey)
         
         getData()
-        
     }
     
     func isDBhasKey(word: String) -> Bool {
